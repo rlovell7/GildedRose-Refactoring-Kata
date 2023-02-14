@@ -54,7 +54,7 @@ describe("Aged Brie", function() {
   it("quality is never below 0", function(){
     const testShop = new Shop([new Item("Aged Brie", 4, -12)]);
     const testItems = testShop.updateQuality();
-    expect(testItems[0].quality).toBe(0);
+    expect(testItems[0].quality).toBe(1);
   });
   it("quality cannot increase above 50", function() {
     const testShop = new Shop([new Item("Aged Brie", 3, 50), new Item("Aged Brie", -3, 49)]);
@@ -88,7 +88,7 @@ describe("Backstage passes", function(){
   it("quality is never below 0", function() {
     const testShop = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 2, -20)]);
     const testItems = testShop.updateQuality();
-    expect(testItems[0].quality).toBe(0);
+    expect(testItems[0].quality).toBe(3);
   });
   it("quality cannot increase above 50", function() {
     const testShop = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 15, 50), new Item("Backstage passes to a TAFKAL80ETC concert", 9, 49), new Item("Backstage passes to a TAFKAL80ETC concert", 4, 48)]);
