@@ -47,6 +47,28 @@ class Shop {
     }
   }
 
+  handleBackStagePass(item){
+    let totalGrowth = 1;
+    
+    if (item.sellIn <= 10){
+      totalGrowth += 1;
+    }
+    
+    if (item.sellIn <= 5){
+      totalGrowth += 1;
+    };
+    
+    if (item.quality + totalGrowth > 50){
+      item.quality = 50;
+    } else {
+      item.quality += totalGrowth;
+    }
+    
+    if(item.sellIn < 0){
+      item.quality = 0;
+    }
+  }
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
 
@@ -67,24 +89,11 @@ class Shop {
               this.handleNormalItems(this.items[i]);
             }
       } else {
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert' && this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
+          if (this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+            this.handleBackStagePass(this.items[i]);
           } else {
             this.handleAgedBrie(this.items[i])
           }
-      }
-      if (this.items[i].sellIn < 0 && this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
       };
   };
     return this.items;
