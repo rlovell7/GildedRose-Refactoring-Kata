@@ -39,20 +39,20 @@ class Shop {
     let totalGrowth = 1;
     if (item.sellIn < 0){
       totalGrowth += 1;
-    }
+    };
     if (item.quality + totalGrowth > 50){
       item.quality = 50;
     } else {
       item.quality += totalGrowth;
-    }
-  }
+    };
+  };
 
   handleBackStagePass(item){
     let totalGrowth = 1;
     
     if (item.sellIn <= 10){
       totalGrowth += 1;
-    }
+    };
     
     if (item.sellIn <= 5){
       totalGrowth += 1;
@@ -62,19 +62,19 @@ class Shop {
       item.quality = 50;
     } else {
       item.quality += totalGrowth;
-    }
+    };
     
     if(item.sellIn < 0){
       item.quality = 0;
-    }
-  }
+    };
+  };
 
   updateQuality() {
     for (const item of this.items) {
 
-      if (item.name == 'Sulfuras, Hand of Ragnaros') {
+      if (item.name ===  "Sulfuras, Hand of Ragnaros") {
         continue;
-      }
+      };
 
       if (item.quality < 0){
         item.quality = 0;
@@ -82,25 +82,25 @@ class Shop {
 
       item.sellIn = item.sellIn - 1;
 
-      if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (item.name.includes('Conjured')){
-            this.handleConjuredItems(item);
-          } else {
-              this.handleNormalItems(item);
-            }
-      } else {
-          if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-            this.handleBackStagePass(item);
-          } else {
-            this.handleAgedBrie(item)
-          }
+      switch (true) {
+        case item.name === 'Aged Brie':
+          this.handleAgedBrie(item);
+          break;
+        case item.name.includes("Conjured"):
+          this.handleConjuredItems(item);
+          break;
+        case item.name.includes("Backstage passes"):
+          this.handleBackStagePass(item);
+          break;
+        default:
+          this.handleNormalItems(item);
       };
-  };
+    };
     return this.items;
-  }
+  };
 };
 
 module.exports = {
   Item,
   Shop
-}
+};
