@@ -19,6 +19,9 @@ class Shop {
         if (this.items[i].quality > 0) {
           if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
             this.items[i].quality = this.items[i].quality - 1;
+            if (this.items[i].name.includes('Conjured') && this.items[i].quality > 0){
+              this.items[i].quality = this.items[i].quality - 1;
+            }
           }
         }
       } else {
@@ -47,6 +50,9 @@ class Shop {
             if (this.items[i].quality > 0) {
               if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
                 this.items[i].quality = this.items[i].quality - 1;
+                if (this.items[i].name.includes('Conjured') && this.items[i].quality > 0){
+                  this.items[i].quality = this.items[i].quality - 1;
+                }
               }
             }
           } else {
