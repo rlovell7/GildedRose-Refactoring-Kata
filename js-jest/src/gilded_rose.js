@@ -15,13 +15,26 @@ class Shop {
     let totalDecay = 1; 
     if (item.sellIn < 0) {
       totalDecay += 1;
-  }
+  };
     if (item.quality - totalDecay < 0){
       item.quality = 0;
     } else {
         item.quality -= totalDecay;
-      };
+    };
   };
+
+  handleConjuredItems(item) {
+    let totalDecay = 2; 
+    if (item.sellIn < 0) {
+      totalDecay += 2;
+  };
+    if (item.quality - totalDecay < 0){
+      item.quality = 0;
+    } else {
+        item.quality -= totalDecay;
+    };
+  };
+
   
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
@@ -33,12 +46,11 @@ class Shop {
         this.items[i].quality = 0;
       };
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-            this.handleNormalItems(this.items[i]);
-            if (this.items[i].name.includes('Conjured') && this.items[i].quality > 0){
-              this.items[i].quality = this.items[i].quality - 2;
+          if (this.items[i].name.includes('Conjured')){
+            this.handleConjuredItems(this.items[i]);
+          } else {
+              this.handleNormalItems(this.items[i]);
             }
-        }
       } else {
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1;
@@ -60,9 +72,6 @@ class Shop {
         if (this.items[i].name != 'Aged Brie') {
           if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].quality > 0) {
-                if (this.items[i].name.includes('Conjured') && this.items[i].quality > 0){
-                  this.items[i].quality = this.items[i].quality - 2;
-                }
               }
           } else {
             this.items[i].quality = this.items[i].quality - this.items[i].quality;
