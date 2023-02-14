@@ -1,6 +1,6 @@
 const {Shop, Item} = require("../src/gilded_rose");
 
-describe("Common Items", function(){
+describe("Normal Items", function(){
   it("quality degrades by 1 every day", function(){
     const testShop = new Shop([new Item("+5 Dexterity Vest", 4, 7)]);
     const testItems = testShop.updateQuality();
@@ -18,7 +18,27 @@ describe("Common Items", function(){
     expect(testItems[1].quality).toBe(0);
     expect(testItems[2].quality).toBe(0);
   });
-})
+});
+
+describe("Conjured Items", function(){
+  it("quality degrades by 2 every day", function(){
+    const testShop = new Shop([new Item("Conjured Mana Cake", 4, 7)]);
+    const testItems = testShop.updateQuality();
+    expect(testItems[0].quality).toBe(5);
+  });
+  it("after sell date, quality degrades twice as fast", function(){
+    const testShop = new Shop([new Item("Conjured Mana Cake", 0, 7)]);
+    const testItems = testShop.updateQuality();
+    expect(testItems[0].quality).toBe(3);
+  });
+  it("quality is never below 0", function(){
+    const testShop = new Shop([new Item("Conjured Mana Cake", 4, 0), new Item("Elixir of the Mongoose", -1, 1), new Item("Conjured Mana Cake", 4, -12)]);
+    const testItems = testShop.updateQuality();
+    expect(testItems[0].quality).toBe(0);
+    expect(testItems[1].quality).toBe(0);
+    expect(testItems[2].quality).toBe(0);
+  });
+});
 
 describe("Aged Brie", function() {
   it("quality should increase by 1 every day", function() {
